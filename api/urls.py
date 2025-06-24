@@ -45,6 +45,7 @@ router.register(r'tipo_enderecos', TipoEnderecoViewSet, basename='tipo_endereco'
 router.register(r'tipo_orientacoes', TipoOrientacaoViewSet, basename='tipo_orientacao')
 router.register(r'tipo_producoes', TipoProducaoViewSet, basename='tipo_producao')
 router.register(r'vinculos', VinculoViewSet, basename='vinculo')
+router.register(r'docente_producoes', DocenteProducaoViewSet, basename='docente_producao')
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

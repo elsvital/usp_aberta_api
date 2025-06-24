@@ -27,7 +27,7 @@ schema_view = get_schema_view(
    openapi.Info(
       title="API Documentation",
       default_version='v1',
-      description="Documentação da API usando USP Aberta",
+      description="API Hub USP Aberta",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="vital@usp.br"),
       license=openapi.License(name="BSD License"),

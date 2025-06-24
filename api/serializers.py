@@ -1,6 +1,35 @@
 from rest_framework import serializers
 from core.models import *
 
+class DocenteProducaoSerializer(serializers.ModelSerializer):
+    producoes_bibliograficas = serializers.SerializerMethodField()
+    producoes_artistica = serializers.SerializerMethodField()
+    producoes_tecnicas = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Docente
+        fields = '__all__'  # ou liste os campos manualmente
+        depth = 1
+
+    def get_producoes_bibliograficas(self, obj):
+        relacoes = Docenteproducaobibliografica.objects.filter(id_docente=obj.id_docente)
+        ids_producoes = relacoes.values_list('id_producao', flat=True)
+        producoes = Producaobibliografica.objects.filter(id_producao__in=ids_producoes)
+        return ProducaoSerializer(producoes, many=True).data
+
+    def get_producoes_tecnicas(self, obj):
+        relacoes = Docenteproducaotecnica.objects.filter(id_docente=obj.id_docente)
+        ids = relacoes.values_list('id_producao', flat=True)
+        producoes = Producaotecnica.objects.filter(id_producao__in=ids)
+        return ProducaoSerializer(producoes, many=True).data
+
+    def get_producoes_artisticas(self, obj):
+        ids = Docenteproducaoartistica.objects.filter(
+            id_docente=obj.id_docente
+        ).values_list('id_producao', flat=True)
+        producoes = Producao.objects.filter(id_producao__in=ids)
+        return ProducaoSerializer(producoes, many=True).data
+
 class ArquivoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Arquivo

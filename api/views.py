@@ -2,6 +2,9 @@ from rest_framework import viewsets
 from core.models import *
 from .serializers import *
 
+class DocenteProducaoViewSet(viewsets.ModelViewSet):
+    queryset = Docente.objects.all()
+    serializer_class = DocenteProducaoSerializer
 
 class ArquivoViewSet(viewsets.ModelViewSet):
     queryset = Arquivo.objects.all()
